@@ -1,0 +1,147 @@
+-- Create Database for case
+CREATE OR REPLACE DATABASE  ENGAGEDMD_PROD
+;
+
+--Table Creation for categories
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.CATEGORIES (
+CategoryID	INT,
+CategoryName VARCHAR,
+Description VARCHAR,
+Picture VARCHAR
+)
+;
+-- Table creation for customer_list
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.CUSTOMER_LIST (
+CustomerID VARCHAR,
+CompanyName VARCHAR,
+ContactName VARCHAR,
+ContactTitle VARCHAR,
+Address VARCHAR,
+City VARCHAR,
+Region VARCHAR,
+PostalCode VARCHAR,
+Country VARCHAR,
+Phone VARCHAR,
+Fax VARCHAR
+)
+;
+-- Table creation for employees
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.EMPLOYEES (
+EmployeeID INT,
+LastName VARCHAR,
+FirstName VARCHAR,
+Title VARCHAR,
+TitleOfCourtesy VARCHAR, 
+BirthDate DATE,
+HireDate DATE,
+Address VARCHAR,
+City VARCHAR,
+Region VARCHAR,
+PostalCode VARCHAR,
+Country VARCHAR,
+HomePhone VARCHAR,
+Extension VARCHAR,
+Photo VARCHAR,
+Notes VARCHAR,
+ReportsTo INT,
+PhotoPath VARCHAR
+)
+;
+-- Table creation for employee-territories
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.EMPLOYEE_TERRITORIES (
+EmployeeID INT,	
+TerritoryID INT
+)
+;
+-- Table creation for order-details
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.ORDER_DETAILS (
+OrderID INT,
+ProductID INT,
+UnitPrice NUMBER(38,2),
+Quantity INT,
+Discount NUMBER(38,2)
+)
+;
+-- Table creation for orders
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.ORDERS (
+OrderID	INT,
+CustomerID VARCHAR,
+EmployeeID INT,
+OrderDate DATE,
+RequiredDate DATE,
+ShippedDate DATE,
+ShipVia INT,
+Freight NUMBER(38,2),
+ShipName VARCHAR,
+ShipAddress VARCHAR,
+ShipCity VARCHAR,
+ShipRegion VARCHAR,
+ShipPostalCode VARCHAR,
+ShipCountry VARCHAR
+)
+;
+-- Table creation for products
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.PRODUCTS (
+ProductID INT,
+ProductName VARCHAR,
+SupplierID INT,
+CategoryID INT,
+QuantityPerUnit VARCHAR,
+UnitPrice NUMBER(38,2),
+UnitsInStock INT,
+UnitsOnOrder INT,
+ReorderLevel INT,
+Discontinued INT
+)
+;
+-- Table creation for regions
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.REGIONS (
+RegionID INT,
+RegionDescription VARCHAR
+)
+;
+-- Table creation for shippers
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.SHIPPERS (
+ShipperID INT,
+CompanyName VARCHAR,
+Phone VARCHAR
+)
+;
+-- Table creation for suppliers
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.SUPPLIERS (
+SupplierID INT,
+CompanyName VARCHAR,
+ContactName VARCHAR,
+ContactTitle VARCHAR,
+Address	VARCHAR,
+City VARCHAR,
+Region VARCHAR,
+PostalCode VARCHAR,
+Country VARCHAR,
+Phone VARCHAR,
+Fax VARCHAR,
+HomePage VARCHAR
+)
+;
+-- Table creation for territories
+CREATE OR REPLACE TABLE ENGAGEDMD_PROD.PUBLIC.TERRITORIES (
+TerritoryID INT,
+TerritoryDescription VARCHAR,
+RegionID INT
+)
+;
+CREATE OR REPLACE FILE FORMAT ENGAGEDMD_PROD.PUBLIC.CSV 
+TYPE = 'CSV' 
+COMPRESSION = 'AUTO' 
+FIELD_DELIMITER = ',' 
+RECORD_DELIMITER = '\n' 
+SKIP_HEADER = 1 
+FIELD_OPTIONALLY_ENCLOSED_BY = '\042' -- Set optionally enclosed due to "," in dataset
+TRIM_SPACE = TRUE 
+ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE 
+ESCAPE = 'NONE' 
+ESCAPE_UNENCLOSED_FIELD = '\134' 
+DATE_FORMAT = 'AUTO' 
+TIMESTAMP_FORMAT = 'AUTO' 
+NULL_IF = ('\\N')
+;
